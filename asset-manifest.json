@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/applehub/static/css/main.073c9b0a.css",
+    "main.js": "/applehub/static/js/main.28322b8b.js",
+    "static/js/787.eb7bb021.chunk.js": "/applehub/static/js/787.eb7bb021.chunk.js",
+    "index.html": "/applehub/index.html",
+    "static/media/logo.svg": "/applehub/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.073c9b0a.css.map": "/applehub/static/css/main.073c9b0a.css.map",
+    "main.28322b8b.js.map": "/applehub/static/js/main.28322b8b.js.map",
+    "787.eb7bb021.chunk.js.map": "/applehub/static/js/787.eb7bb021.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.28322b8b.js"
+  ]
+}
