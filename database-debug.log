@@ -1,0 +1,4 @@
+23:16:31.808 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+23:16:32.016 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+23:16:44.358 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - applehub-e2023-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 141ms, init: 0ms
+23:16:44.421 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace applehub-e2023-default-rtdb status Active to Active
