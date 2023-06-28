@@ -8,24 +8,27 @@ import HeadphonePage from './pages/HeadphonePage/HeadphonePage';
 import Modal from './components/Modal/Modal';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from './redux/auth/authSelectors';
+import SharedLayout from './components/SharedLayout/SharedLayout';
 
 
 function App() {
   const accessToken = useSelector(getAccessToken);
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/iphone" element={<IphonePage />} />
-      <Route path="/ipad" element={<IpadPage />} />
-      <Route path="/watch" element={<WatchPage />} />
-      <Route path="/headphones" element={<HeadphonePage />} />
-      {accessToken ? (
-        <Route path="/user" element={<UserPage />} />
-      ) : (
-        <Route path="/user" element={<Modal />} />
-      )}
-
+      <Route path="/" element={<SharedLayout />}>
+        <Route path="" element={<MainPage />} />
+        <Route path="/iphone" element={<IphonePage />} />
+        <Route path="/ipad" element={<IpadPage />} />
+        <Route path="/watch" element={<WatchPage />} />
+        <Route path="/headphones" element={<HeadphonePage />} />
+        {accessToken ? (
+          <Route path="/user" element={<UserPage />} />
+        ) : (
+          <Route path="/user" element={<Modal />} />
+        )}
+      </Route>
     </Routes>
+
   );
 }
 

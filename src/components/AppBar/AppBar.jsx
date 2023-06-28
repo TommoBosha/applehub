@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 const pages = ["Iphone", "Ipad", "Watch", "Headphones"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar() {
+function HeaderAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -172,4 +172,6 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+
+
+export default HeaderAppBar;
