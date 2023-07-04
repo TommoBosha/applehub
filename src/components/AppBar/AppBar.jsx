@@ -1,41 +1,65 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import InputBase from "@mui/material/InputBase";
 import AppleIcon from "@mui/icons-material/Apple";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+import {
+  Typography,
+  AppBar,
+  Box,
+  Toolbar,
+  Container,
+  Button,
+  MenuItem,
+  InputBase,
+  alpha,
+  Menu,
+  IconButton,
+} from "@mui/material";
 
-const pages = ["Iphone", "Ipad", "Watch", "Headphones"];
+const pages = [
+  {
+    category: "Iphone",
+    models: ["iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "iPhone 13 mini", "iPhone 12",],
+  },
+  {
+    category: "Ipad",
+    models: ["iPad 10.9 2022", "iPad Air", "iPad Pro 12.9 2022", "iPad Pro 11 2022", "iPad mini 6"],
+  },
+  {
+    category: "Watch",
+    models: ["Watch Series 8 41mm", "Watch Series 8 45mm", "Watch SE 2 40mm", "Watch SE 2 44mm", "Watch Ultra 49mm"],
+  },
+  {
+    category: "Headphones",
+    models: ["AirPods Max", "AirPods Pro 2", "AirPods 3", "AirPods 2"],
+  },
+];
 
 function HeaderAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const handleCategoryMouseEnter = (category) => {
+    setSelectedCategory(category);
   };
+
+  const handleCategoryMouseLeave = () => {
+    setSelectedCategory(null);
+  };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const isCategorySelected = (category) => {
+    return selectedCategory === category;
   };
 
   const Search = styled("div")(({ theme }) => ({
@@ -67,7 +91,6 @@ function HeaderAppBar() {
     color: "inherit",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create("width"),
       width: "100%",
@@ -81,18 +104,17 @@ function HeaderAppBar() {
   }));
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ zIndex: 1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AppleIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AppleIcon sx={{ mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/applehub"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -103,82 +125,52 @@ function HeaderAppBar() {
             AppleHub
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link
-                    to={`/${page.toLowerCase()}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <Typography textAlign="center">{page}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AppleIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            AppleHub
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: "flex", flexWrap: "nowrap" }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                component={Link}
-                to={`/${page.toLowerCase()}`}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  textDecoration: "none",
-                }}
+              <Box
+                key={page.category}
+                sx={{ position: "relative" }}
+                onMouseEnter={() => handleCategoryMouseEnter(page.category)}
+                onMouseLeave={() => handleCategoryMouseLeave(page.category)}
               >
-                {page}
-              </Button>
+                <Button
+                  component={Link}
+                  to={`/${page.category.toLowerCase()}`}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    textDecoration: "none",
+                    marginRight: "10px",
+                  }}
+                >
+                  {page.category}
+                </Button>
+                {isCategorySelected(page.category) && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      backgroundColor: "white",
+                      boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",
+                      padding: "10px",
+                      zIndex: 2,
+                    }}
+                  >
+                    {page.models.map((model) => (
+                      <MenuItem key={model}>
+                        <Link
+                          to={`/${page.category.toLowerCase()}/${model.toLowerCase().replace(/\s+/g, '-')}`}
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          <Typography textAlign="center">{model}</Typography>
+                        </Link>
+                      </MenuItem>
+                    ))}
+                  </Box>
+                )}
+              </Box>
             ))}
           </Box>
 
