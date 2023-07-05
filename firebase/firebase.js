@@ -1,14 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCX1Cm6-ycILOw7EEtEsXmVMvDt5r8vD4c",
     authDomain: "applehub-e2023.firebaseapp.com",
+    databaseURL: "https://applehub-e2023-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "applehub-e2023",
     storageBucket: "applehub-e2023.appspot.com",
     messagingSenderId: "388339879557",
@@ -18,5 +18,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// eslint-disable-next-line no-unused-vars
-const analytics = getAnalytics(app);
+
+export const analytics = getAnalytics(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);

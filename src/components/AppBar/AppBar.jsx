@@ -15,22 +15,43 @@ import {
   MenuItem,
   InputBase,
   alpha,
-  Menu,
   IconButton,
 } from "@mui/material";
+import AuthModal from "../Modal/Modal";
 
 const pages = [
   {
     category: "Iphone",
-    models: ["iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "iPhone 13 mini", "iPhone 12",],
+    models: [
+      "iPhone 14 Pro Max",
+      "iPhone 14 Pro",
+      "iPhone 14",
+      "iPhone 13 Pro Max",
+      "iPhone 13 Pro",
+      "iPhone 13",
+      "iPhone 13 mini",
+      "iPhone 12",
+    ],
   },
   {
     category: "Ipad",
-    models: ["iPad 10.9 2022", "iPad Air", "iPad Pro 12.9 2022", "iPad Pro 11 2022", "iPad mini 6"],
+    models: [
+      "iPad 10.9 2022",
+      "iPad Air",
+      "iPad Pro 12.9 2022",
+      "iPad Pro 11 2022",
+      "iPad mini 6",
+    ],
   },
   {
     category: "Watch",
-    models: ["Watch Series 8 41mm", "Watch Series 8 45mm", "Watch SE 2 40mm", "Watch SE 2 44mm", "Watch Ultra 49mm"],
+    models: [
+      "Watch Series 8 41mm",
+      "Watch Series 8 45mm",
+      "Watch SE 2 40mm",
+      "Watch SE 2 44mm",
+      "Watch Ultra 49mm",
+    ],
   },
   {
     category: "Headphones",
@@ -39,8 +60,16 @@ const pages = [
 ];
 
 function HeaderAppBar() {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [isLoginModalOpen, setLoginModalOpen] = React.useState(false);
+
+  const handleLoginModalOpen = () => {
+    setLoginModalOpen(true);
+  };
+
+  const handleLoginModalClose = () => {
+    setLoginModalOpen(false);
+  };
 
   const handleCategoryMouseEnter = (category) => {
     setSelectedCategory(category);
@@ -48,14 +77,6 @@ function HeaderAppBar() {
 
   const handleCategoryMouseLeave = () => {
     setSelectedCategory(null);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const isCategorySelected = (category) => {
@@ -161,7 +182,9 @@ function HeaderAppBar() {
                     {page.models.map((model) => (
                       <MenuItem key={model}>
                         <Link
-                          to={`/${page.category.toLowerCase()}/${model.toLowerCase().replace(/\s+/g, '-')}`}
+                          to={`/${page.category.toLowerCase()}/${model
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           <Typography textAlign="center">{model}</Typography>
@@ -185,35 +208,19 @@ function HeaderAppBar() {
           </Search>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenUserMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
-            </Menu>
+            <Link to="/user">
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                style={{ color: "white" }}
+                onClick={handleLoginModalOpen}
+              >
+                <AccountCircle />
+              </IconButton>
+            </Link>
 
             <IconButton aria-label="cart" color="inherit">
               <ShoppingCartIcon />
@@ -221,6 +228,7 @@ function HeaderAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      <AuthModal open={isLoginModalOpen} onClose={handleLoginModalClose} />
     </AppBar>
   );
 }
