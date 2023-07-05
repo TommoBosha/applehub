@@ -5,10 +5,10 @@ import IphonePage from './pages/IphonePage/IphonePage';
 import IpadPage from './pages/IpadPage/IpadPage';
 import WatchPage from './pages/WatchPage/WatchPage';
 import HeadphonePage from './pages/HeadphonePage/HeadphonePage';
-import Modal from './components/Modal/Modal';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from './redux/auth/authSelectors';
 import SharedLayout from './components/SharedLayout/SharedLayout';
+import AuthModal from './components/Modal/Modal';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         {accessToken ? (
           <Route path="/user" element={<UserPage />} />
         ) : (
-          <Route path="/user" element={<Modal />} />
+          <Route path="/user" element={<AuthModal />} />
         )}
       </Route>
     </Routes>
