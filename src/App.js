@@ -5,14 +5,13 @@ import IphonePage from './pages/IphonePage/IphonePage';
 import IpadPage from './pages/IpadPage/IpadPage';
 import WatchPage from './pages/WatchPage/WatchPage';
 import HeadphonePage from './pages/HeadphonePage/HeadphonePage';
-import { useSelector } from 'react-redux';
-import { getAccessToken } from './redux/auth/authSelectors';
 import SharedLayout from './components/SharedLayout/SharedLayout';
-import AuthModal from './components/Modal/Modal';
+import { PrivateRoute } from './components/routes/PrivateRoute';
+
 
 
 function App() {
-  const accessToken = useSelector(getAccessToken);
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
@@ -21,11 +20,10 @@ function App() {
         <Route path="/ipad" element={<IpadPage />} />
         <Route path="/watch" element={<WatchPage />} />
         <Route path="/headphones" element={<HeadphonePage />} />
-        {accessToken ? (
+        <Route path="" element={<PrivateRoute />}>
           <Route path="/user" element={<UserPage />} />
-        ) : (
-          <Route path="/user" element={<AuthModal />} />
-        )}
+
+        </Route>
       </Route>
     </Routes>
 
