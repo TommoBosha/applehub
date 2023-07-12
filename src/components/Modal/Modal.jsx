@@ -10,8 +10,11 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { signIn, signUp } from "../../redux/auth/authOperations";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
-const AuthModal = ({ open = false, onClose }) => {
+
+const AuthModal = ({ open, onClose }) => {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -21,6 +24,7 @@ const AuthModal = ({ open = false, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState("");
+
 
   const handleRegistrationOpen = () => {
     setIsRegistrationOpen(true);
@@ -41,6 +45,14 @@ const AuthModal = ({ open = false, onClose }) => {
     try {
       const signUpResult = await signUp(email, password, name, surname, phone);
 
+        await addDoc(collection(db, "users"), {
+            email,
+            phone,
+            name,
+          surname,
+
+        });
+
       if (signUpResult.error) {
         setError(signUpResult.error);
       }
@@ -53,6 +65,7 @@ const AuthModal = ({ open = false, onClose }) => {
   const handleSignInSubmit = async () => {
     try {
       const result = await signIn(email, password);
+
 
       if (result === true) {
         alert("Hello!");

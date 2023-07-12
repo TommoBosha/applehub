@@ -15,7 +15,7 @@ import { authReducer } from './auth/authSlice';
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['token'],
+    whitelist: ['accessToken'],
 };
 const persistedReducer = persistReducer(authPersistConfig, authReducer);
 
@@ -31,5 +31,6 @@ export const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
+    devTools: process.env.NODE_ENV === 'development',
 });
 export const persistor = persistStore(store);
