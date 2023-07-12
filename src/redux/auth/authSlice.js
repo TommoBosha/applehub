@@ -6,10 +6,10 @@ const authInitialState = {
     isLoggedIn: false,
     isLoading: false,
     error: null,
-    email: localStorage.getItem("email"),
-    phone: localStorage.getItem("phone"),
-    token: localStorage.getItem("token"),
-    uid: localStorage.getItem("id"),
+    email: null,
+    phone: null,
+    accessToken: "",
+    userId: null,
 };
 
 const authSlice = createSlice({
@@ -17,29 +17,27 @@ const authSlice = createSlice({
     initialState: authInitialState,
     reducers: {
         setUser(state, { payload }) {
+            console.log("accessToken in reducer:", payload.accessToken);
+            console.log("userId in reducer:", payload.uid);
             state.email = payload.email;
             state.phone = payload.phone;
-            state.role = payload.role;
-            state.token = payload.token;
-            state.id = payload.id;
-            localStorage.setItem("email", payload.email);
-            localStorage.setItem("phone", payload.phone);
-            localStorage.setItem("token", payload.token);
-            localStorage.setItem("id", payload.id);
+            state.accessToken = payload.accessToken;
+            state.userId = payload.uid;
+
         },
-        getUser(state) {
-            state.email = localStorage.getItem("email");
-            state.phone = localStorage.getItem("phone");
-            state.token = localStorage.getItem("token");
-            state.id = localStorage.getItem("id");
+        getUser(state, { payload }) {
+            state.email = payload.email;;
+            state.phone = payload.phone;
+            state.accessToken = payload.accessToken;
+            state.uid = payload.uid;
+
         },
         removeUser(state) {
             state.email = null;
             state.phone = null;
-            state.role = null;
-            state.token = null;
-            state.id = null;
-            localStorage.clear();
+            state.accessToken = null;
+            state.uid = null;
+
         },
     },
 
