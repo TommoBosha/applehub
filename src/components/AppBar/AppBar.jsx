@@ -184,7 +184,8 @@ function HeaderAppBar() {
                         <Link
                           to={`/${page.category.toLowerCase()}/${model
                             .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
+                            .replace(/\s+/g, "-")
+                            .replace(/\./g, "-")}`}
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           <Typography textAlign="center">{model}</Typography>

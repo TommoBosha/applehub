@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { database, ref, onValue } from "../../firebase/config";
+import React from "react";
 import { Grid, Card, CardContent, Typography, CardMedia } from "@mui/material";
 import { styled } from "@mui/system";
 import Loader from "../Loader/Loader";
@@ -10,26 +9,13 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   flexDirection: "column",
 }));
 
-const CategoryComponent = ({ category }) => {
-  const [categoryData, setCategoryData] = useState(null);
-
-  useEffect(() => {
-    const categoryRef = ref(database, category);
-    onValue(categoryRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setCategoryData(data);
-      }
-    });
-  }, [category]);
-
+const CategoryItemComponent = ({ categoryData }) => {
   return (
     <div>
-      <h1>{category}</h1> 
       {categoryData ? (
         <Grid container spacing={2}>
-          {Object.entries(categoryData).map(([key, items]) =>
-            items.map((item, index) => (
+          {Array.isArray(categoryData) ? (
+            categoryData.map((item, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                 <CardWrapper>
                   <CardMedia
@@ -46,13 +32,15 @@ const CategoryComponent = ({ category }) => {
                 </CardWrapper>
               </Grid>
             ))
+          ) : (
+            <p>Invalid categoryData format</p>
           )}
         </Grid>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </div>
   );
 };
 
-export default CategoryComponent;
+export default CategoryItemComponent;

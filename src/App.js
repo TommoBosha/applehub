@@ -9,6 +9,7 @@ import SharedLayout from './components/SharedLayout/SharedLayout';
 import { PrivateRoute } from './components/routes/PrivateRoute';
 import { PublicRoute } from './components/routes/PublicRoute';
 import AuthModal from './components/Modal/Modal';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
 
 
 
@@ -19,19 +20,21 @@ function App() {
       <Route path="/" element={<SharedLayout />}>
         <Route path="" element={<MainPage />} />
         <Route path="/iphone" element={<IphonePage />} />
+        <Route path="/iphone/:categoryName" element={<CategoryPage />} />
         <Route path="/ipad" element={<IpadPage />} />
+        <Route path="/ipad/:categoryName" element={<CategoryPage />} />
         <Route path="/watch" element={<WatchPage />} />
+        <Route path="/watch/:categoryName" element={<CategoryPage />} />
         <Route path="/headphones" element={<HeadphonePage />} />
+        <Route path="/headphones/:categoryName" element={<CategoryPage />} />
         <Route path="" element={<PublicRoute redirectTo="user" restricted />}>
           <Route path="/" element={<AuthModal />} />
         </Route>
         <Route path="" element={<PrivateRoute />}>
           <Route path="/user" element={<UserPage />} />
-
         </Route>
       </Route>
     </Routes>
-
   );
 }
 
