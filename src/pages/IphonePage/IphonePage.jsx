@@ -1,8 +1,9 @@
 import React from 'react'
+import CategoryComponent from '../../components/CategoryComponent/CategoryComponent'
 
 function IphonePage() {
   return (
-    <div>IphonePage</div>
+     <CategoryComponent category="iphone" />
   )
 }
 

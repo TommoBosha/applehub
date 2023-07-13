@@ -1,8 +1,10 @@
 import React from 'react'
+import CategoryComponent from '../../components/CategoryComponent/CategoryComponent'
+
 
 function WatchPage() {
   return (
-    <div>WatchPage</div>
+     <CategoryComponent category="watch" />
   )
 }
 

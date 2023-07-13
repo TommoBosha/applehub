@@ -1,9 +1,11 @@
 import React from 'react'
-import MyComponent from '../../components/Headphones/Headphones'
+import CategoryComponent from '../../components/CategoryComponent/CategoryComponent'
+// import HeadphonesComponent from '../../components/Headphones/Headphones'
 
 function HeadphonePage() {
   return (
-    <MyComponent/>
+    // <HeadphonesComponent/>
+    <CategoryComponent category="headphones" />
   )
 }
 
