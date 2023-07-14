@@ -9,10 +9,11 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { signIn, signUp } from "../../redux/auth/authOperations";
+import { logOut, signIn, signUp } from "../../redux/auth/authOperations";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase/config";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getState } from "../../redux/auth/authSelectors";
 
 const AuthModal = ({ open, onClose }) => {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
@@ -22,9 +23,9 @@ const AuthModal = ({ open, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [error, setError] = useState("");
-
+  const [setError] = useState("");
+  const state = useSelector(getState);
+  const dispatch = useDispatch();
 
   const handleRegistrationOpen = () => {
     setIsRegistrationOpen(true);
@@ -42,40 +43,59 @@ const AuthModal = ({ open, onClose }) => {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
     }
-    try {
-      const signUpResult = await signUp(email, password, name, surname, phone);
+    // try {
+    // const signUpResult =
+    dispatch(signUp(email, password, name, surname, phone));
 
-        await addDoc(collection(db, "users"), {
-            email,
-            phone,
-            name,
-          surname,
+    await addDoc(collection(db, "users"), {
+      email,
+      phone,
+      name,
+      surname,
+    });
 
-        });
-
-      if (signUpResult.error) {
-        setError(signUpResult.error);
-      }
-    } catch (error) {
-      console.log(error);
-      return { error: error.message };
-    }
+    //   if (signUpResult.error) {
+    //     setError(signUpResult.error);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   return { error: error.message };
+    // }
   };
 
+  // const handleSignInSubmit = async () => {
+  //   try {
+  //     const result = await signIn( email, password );
+  //     console.log("====================================");
+  //     console.log(state);
+  //     console.log("====================================");
+  //     if (result === true) {
+  //       alert("Hello!");
+  //     } else {
+  //       setError(result.error);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError(error.message);
+  //   }
+  // };
   const handleSignInSubmit = async () => {
-    try {
-      const result = await signIn(email, password);
+    dispatch(signIn(email, password));
+    console.log("====================================");
+    console.log(state);
+    console.log("====================================");
+  };
 
-
-      if (result === true) {
-        alert("Hello!");
-      } else {
-        setError(result.error);
-      }
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
-    }
+  const handleSignOut = async () => {
+    // try {
+    await logOut();
+    console.log("====================================");
+    console.log(state);
+    console.log("====================================");
+    // } catch (error) {
+    //   console.log(error);
+    //   setError(error.message);
+    // }
   };
 
   return (
@@ -110,7 +130,7 @@ const AuthModal = ({ open, onClose }) => {
               Реєстрація
             </Typography>
             <TextField
-              label="Ім'я пользователя"
+              label="Ім'я"
               fullWidth
               sx={{ mb: 5 }}
               value={name}
@@ -124,21 +144,21 @@ const AuthModal = ({ open, onClose }) => {
               onChange={(e) => setSurname(e.target.value)}
             />
             <TextField
-              label="Телефон пользователя"
+              label="Номер телефону"
               fullWidth
               sx={{ mb: 5 }}
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
             <TextField
-              label="Email"
+              label="Електронна адреса"
               fullWidth
               sx={{ mb: 5 }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
-              label="Пароль пользователя"
+              label="Пароль"
               fullWidth
               sx={{ mb: 5 }}
               value={password}
@@ -176,7 +196,7 @@ const AuthModal = ({ open, onClose }) => {
               Вхід
             </Typography>
             <TextField
-              label="Email"
+              label="Електронна адреса"
               fullWidth
               sx={{ mb: 5 }}
               value={email}
@@ -198,6 +218,15 @@ const AuthModal = ({ open, onClose }) => {
               onClick={handleSignInSubmit}
             >
               Увійти
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mb: 2 }}
+              onClick={handleSignOut}
+            >
+              LogOut
             </Button>
             <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
               Новий користувач?{" "}

@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
-import {  getToken } from '../../redux/auth/authSelectors';
-import { Outlet, Navigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { getAccessToken } from "../../redux/auth/authSelectors";
+import { Outlet, Navigate } from "react-router-dom";
 
-export const PublicRoute = ({ restricted = false, redirectTo = '/' }) => {
-  const accessToken = useSelector(getToken);
+export const PublicRoute = ({ restricted = false, redirectTo = "/" }) => {
+  const accessToken = useSelector(getAccessToken);
 
   const shouldRedirect = accessToken && restricted;
 
