@@ -19,6 +19,7 @@ export const signUp = async (email, password, phone, name, surname, dispatch) =>
             surname
         );
         const user = userCredential.user;
+        console.log(user)
 
         const accessToken = await getIdToken(user);
 

@@ -10,12 +10,13 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   background: "rgba(25, 118, 210, 0.1)",
+  marginTop: "30px",
 }));
 
 const PaginationWrapper = styled("div")({
   display: "flex",
   justifyContent: "center",
-  marginTop: "20px",
+  marginTop: "50px",
 });
 
 const CategoryComponent = ({ category }) => {
@@ -94,7 +95,6 @@ const CategoryComponent = ({ category }) => {
 
   return (
     <div>
-      <h1>{category}</h1>
       <Grid container spacing={2}>
         {getCategoryItems().map((item, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>

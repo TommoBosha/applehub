@@ -10,6 +10,7 @@ import { PrivateRoute } from './components/routes/PrivateRoute';
 import { PublicRoute } from './components/routes/PublicRoute';
 import AuthModal from './components/Modal/Modal';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/watch/:categoryName" element={<CategoryPage />} />
         <Route path="/headphones" element={<HeadphonePage />} />
         <Route path="/headphones/:categoryName" element={<CategoryPage />} />
+        <Route path='/:categoryName' element={<ProductPage />} />
         <Route path="" element={<PublicRoute redirectTo="user" restricted />}>
           <Route path="/" element={<AuthModal />} />
         </Route>
