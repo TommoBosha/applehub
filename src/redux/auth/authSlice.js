@@ -1,47 +1,49 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const authInitialState = {
-    user: {},
-    isLoggedIn: false,
-    isLoading: false,
-    error: null,
-    email: null,
-    phone: null,
-    accessToken: "",
-    userId: null,
+  userId: null,
+  userEmail: null,
+  userPhoneNumber: "",
+  userName: null,
+  accessToken: null,
+  refreshToken: null,
 };
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: authInitialState,
-    reducers: {
-        setUser(state, { payload }) {
-            console.log("accessToken in reducer:", payload.accessToken);
-            console.log("userId in reducer:", payload.uid);
-            state.email = payload.email;
-            state.phone = payload.phone;
-            state.accessToken = payload.accessToken;
-            state.userId = payload.uid;
+  name: "auth",
+  initialState: authInitialState,
+  reducers: {
+    registerUser: (state, { payload }) => ({
+      ...state,
+      userId: payload.userId,
+      accessToken: payload.accessToken,
+      refreshToken: payload.refreshToken,
+    }),
+    updateUser: (state, { payload }) => ({
+      ...state,
+      userId: payload.userId,
+      userEmail: payload.userEmail,
+      userName: payload.userName,
+      userPhoneNumber: payload.phoneNumber,
+      accessToken: payload.accessToken,
+      refreshToken: payload.refreshToken,
+    }),
+    logout: () => authInitialState,
 
-        },
-        getUser(state, { payload }) {
-            state.email = payload.email;;
-            state.phone = payload.phone;
-            state.accessToken = payload.accessToken;
-            state.uid = payload.uid;
-
-        },
-        removeUser(state) {
-            state.email = null;
-            state.phone = null;
-            state.accessToken = null;
-            state.uid = null;
-
-        },
-    },
-
-})
-export const { setUser, getUser, removeUser } = authSlice.actions;
+    // getUser(state, { payload }) {
+    //   state.email = payload.email;
+    //   state.phone = payload.phone;
+    //   state.accessToken = payload.accessToken;
+    //   state.uid = payload.uid;
+    // },
+    // removeUser(state) {
+    //   state.email = null;
+    //   state.phone = null;
+    //   state.accessToken = null;
+    //   state.uid = null;
+    // },
+  },
+});
+export const { registerUser, updateUser, logout } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

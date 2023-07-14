@@ -1,78 +1,84 @@
 import {
     createUserWithEmailAndPassword,
-    getIdToken,
     signInWithEmailAndPassword,
     signOut,
     updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { setUser } from "./authSlice";
+import { updateUser, registerUser, logout } from "../auth/authSlice";
 
-export const signUp = async (email, password, phone, name, surname, dispatch) => {
-    try {
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password,
-            phone,
-            name,
-            surname
-        );
-        const user = userCredential.user;
-        console.log(user)
+export const signUp =
+    (email, password, name, surname, phone) => async (dispatch) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-        const accessToken = await getIdToken(user);
+            const user = userCredential.user;
+            await updateProfile(user, {
+                phoneNumber: phone,
+                photoURL: phone,
+                displayName: `${name} ${surname}`,
+            });
 
-        await updateProfile(auth.currentUser, {
-            displayName: `${name} ${surname}`,
-            phoneNumber: phone,
-        });
-        console.log("accessToken:", accessToken);
-        dispatch(
-            setUser({
-                email: auth.currentUser.email,
-                phone: auth.currentUser.phoneNumber,
-                accessToken: accessToken,
-                id: auth.currentUser.uid,
-            })
-        );
+            const { uid, displayName, photoURL, accessToken, refreshToken } = user;
+            const emailUser = userCredential.user.email;
 
-        return true;
-    } catch (error) {
-        return { error: error.message };
-    }
-};
+            dispatch(
+                registerUser({
+                    userName: displayName,
+                    userId: uid,
+                    userEmail: emailUser,
+                    phoneNumber: photoURL,
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                })
+            );
 
-export const signIn = async (email, password, dispatch) => {
+            dispatch(signIn(email, password));
+        } catch (error) {
+            return { error: error.message };
+        }
+    };
+
+export const signIn = (email, password) => async (dispatch) => {
     try {
         const userCredential = await signInWithEmailAndPassword(
             auth,
             email,
             password
         );
-        const user = userCredential.user;
 
-        const accessToken = await getIdToken(user);
-        console.log("accessToken:", accessToken);
+        const { accessToken, displayName, phoneNumber, uid, refreshToken } =
+            userCredential.user;
+        console.log("====================================");
+        console.log(userCredential);
+        console.log("====================================");
+        // const emailUser = userCredential.user.email;
+
         dispatch(
-            setUser({
-                email: auth.currentUser.email,
+            updateUser({
+                userName: displayName,
+                userId: uid,
+                userEmail: email,
+                userPhoneNumber: phoneNumber,
                 accessToken: accessToken,
-                uid: auth.currentUser.uid,
+                refreshToken: refreshToken,
             })
         );
-
-        return true;
     } catch (error) {
         return { error: error.message };
     }
 };
 
-export const logOut = async () => {
+export const logOut = async (dispatch) => {
     try {
-        await signOut(auth)
-        return true
+        await signOut(auth);
+        dispatch(logout());
+        return true;
     } catch (error) {
-        return false
+        return false;
     }
 };
