@@ -28,7 +28,7 @@ function App() {
         <Route path="/watch/:categoryName" element={<CategoryPage />} />
         <Route path="/headphones" element={<HeadphonePage />} />
         <Route path="/headphones/:categoryName" element={<CategoryPage />} />
-        <Route path='/:categoryName' element={<ProductPage />} />
+        <Route path='/:titleName' element={<ProductPage />} />
         <Route path="" element={<PublicRoute redirectTo="user" restricted />}>
           <Route path="/" element={<AuthModal />} />
         </Route>

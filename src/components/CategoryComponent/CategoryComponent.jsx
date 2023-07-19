@@ -4,6 +4,7 @@ import { Grid, Card, CardContent, Typography, CardMedia, Pagination, IconButton 
 import { styled } from "@mui/system";
 import Loader from "../Loader/Loader";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Link } from "react-router-dom";
 
 const CardWrapper = styled(Card)(({ theme }) => ({
   height: "100%",
@@ -29,6 +30,7 @@ const CategoryComponent = ({ category }) => {
     const categoryRef = ref(database, category);
     onValue(categoryRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data)
       if (data) {
         setCategoryData(data);
         const totalItems = Object.values(data).flat().length;
@@ -71,6 +73,7 @@ const CategoryComponent = ({ category }) => {
           {getCategoryItems().map((item, index) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <CardWrapper>
+                <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
                 <CardMedia
                   component="img"
                   height="auto"
@@ -81,7 +84,8 @@ const CategoryComponent = ({ category }) => {
                   <Typography variant="h6">{item.model}</Typography>
                   <Typography variant="body2">{item.title}</Typography>
                   <Typography variant="body2">Ціна: {item.price}</Typography>
-                </CardContent>
+                  </CardContent>
+                  </Link>
               </CardWrapper>
             </Grid>
           ))}
@@ -99,6 +103,7 @@ const CategoryComponent = ({ category }) => {
         {getCategoryItems().map((item, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
             <CardWrapper>
+              <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
               <CardMedia
                 component="img"
                 height="auto"
@@ -109,7 +114,8 @@ const CategoryComponent = ({ category }) => {
                 <Typography variant="h6">{item.model}</Typography>
                 <Typography variant="body2">{item.title}</Typography>
                 <Typography variant="body2">Ціна: {item.price}</Typography>
-              </CardContent>
+                </CardContent>
+                </Link>
             </CardWrapper>
           </Grid>
         ))}
