@@ -3,6 +3,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
@@ -17,7 +18,11 @@ import {
   alpha,
   IconButton,
 } from "@mui/material";
-import AuthModal from "../Modal/Modal";
+import AuthModal from "../Modal/ModalAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { getAccessToken } from "../../redux/auth/authSelectors";
+import { logOut } from "../../redux/auth/authOperations";
+import { logout } from "../../redux/auth/authSlice";
 
 const pages = [
   {
@@ -62,6 +67,8 @@ const pages = [
 function HeaderAppBar() {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [isLoginModalOpen, setLoginModalOpen] = React.useState(false);
+  const isAuthorized = useSelector(getAccessToken);
+  const dispatch = useDispatch();
 
   const handleLoginModalOpen = () => {
     setLoginModalOpen(true);
@@ -81,6 +88,11 @@ function HeaderAppBar() {
 
   const isCategorySelected = (category) => {
     return selectedCategory === category;
+  };
+
+  const handleSignOut = async () => {
+    await logOut();
+    dispatch(logout());
   };
 
   const Search = styled("div")(({ theme }) => ({
@@ -209,7 +221,8 @@ function HeaderAppBar() {
           </Search>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Link to="/user">
+            {!isAuthorized ? (
+              // <Link to="/user">
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -221,7 +234,34 @@ function HeaderAppBar() {
               >
                 <AccountCircle />
               </IconButton>
-            </Link>
+            ) : (
+              // </Link>
+              <>
+                <Link to="/user">
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                    style={{ color: "white" }}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                </Link>
+                <IconButton
+                  size="large"
+                  aria-label="logout"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="inherit"
+                  style={{ color: "white" }}
+                  onClick={handleSignOut}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </>
+            )}
 
             <IconButton aria-label="cart" color="inherit">
               <ShoppingCartIcon />
