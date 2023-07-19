@@ -15,7 +15,6 @@ import ProductPage from './pages/ProductPage/ProductPage';
 
 
 function App() {
-
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
