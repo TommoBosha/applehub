@@ -8,7 +8,7 @@ import HeadphonePage from './pages/HeadphonePage/HeadphonePage';
 import SharedLayout from './components/SharedLayout/SharedLayout';
 import { PrivateRoute } from './components/routes/PrivateRoute';
 import { PublicRoute } from './components/routes/PublicRoute';
-import AuthModal from './components/Modal/Modal';
+import AuthModal from './components/Modal/ModalAuth';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 
