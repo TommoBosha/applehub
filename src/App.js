@@ -1,20 +1,17 @@
-import { Route, Routes } from 'react-router-dom';
-import MainPage from './pages/MainPage/MainPage';
-import UserPage from './pages/UserPage/UserPage';
-import IphonePage from './pages/IphonePage/IphonePage';
-import IpadPage from './pages/IpadPage/IpadPage';
-import WatchPage from './pages/WatchPage/WatchPage';
-import HeadphonePage from './pages/HeadphonePage/HeadphonePage';
-import SharedLayout from './components/SharedLayout/SharedLayout';
-import { PrivateRoute } from './components/routes/PrivateRoute';
-import { PublicRoute } from './components/routes/PublicRoute';
-import AuthModal from './components/Modal/Modal';
-import CategoryPage from './pages/CategoryPage/CategoryPage';
-
-
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/MainPage/MainPage";
+import UserPage from "./pages/UserPage/UserPage";
+import IphonePage from "./pages/IphonePage/IphonePage";
+import IpadPage from "./pages/IpadPage/IpadPage";
+import WatchPage from "./pages/WatchPage/WatchPage";
+import HeadphonePage from "./pages/HeadphonePage/HeadphonePage";
+import SharedLayout from "./components/SharedLayout/SharedLayout";
+import { PrivateRoute } from "./components/routes/PrivateRoute";
+import { PublicRoute } from "./components/routes/PublicRoute";
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import AuthModal from "./components/Modal/ModalAuth";
 
 function App() {
-
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>

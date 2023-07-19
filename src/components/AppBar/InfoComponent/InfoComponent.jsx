@@ -1,14 +1,14 @@
-import React from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import React from "react";
+import { Container, Grid, Typography } from "@mui/material";
 
 const imageStyle = {
-  width: '479px',
-  height: '479px',
-  borderRadius: '40px',
+  width: "479px",
+  height: "479px",
+  borderRadius: "40px",
 };
 
 const containerStyle = {
-  marginTop: '30px',
+  marginTop: "30px",
 };
 
 const InfoComponent = () => {
@@ -23,27 +23,43 @@ const InfoComponent = () => {
           />
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2} alignItems="center">
+          <Grid
+            item
+            xs
+            container
+            direction="column"
+            spacing={2}
+            alignItems="center"
+          >
             <Grid item xs>
               <Typography variant="h3" align="center">
-                Поразительные MacBooks
+                Вражаючі MacBooks
               </Typography>
               <Typography variant="body1" align="center">
-                Ультратонкие и мощные ноутбуки от Apple станут вашими незаменимыми помощниками в жизни и работе.
+                Ультратонкі та потужні ноутбуки від Apple стануть вашими
+                незамінними помічниками у житті та роботі.
               </Typography>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid container spacing={2} alignItems="center" marginTop= "40px">
+      <Grid container spacing={2} alignItems="center" marginTop="40px">
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2} alignItems="center">
+          <Grid
+            item
+            xs
+            container
+            direction="column"
+            spacing={2}
+            alignItems="center"
+          >
             <Grid item xs>
               <Typography variant="h3" align="center">
-                Камеры iPhone
+                Камери iPhone
               </Typography>
               <Typography variant="body1" align="center">
-                Снимайте захватывающие фотографии и видео с ультраширокими линзами новых моделей iPhone.
+                Знімайте захоплюючі фотографії та відео з ультра широкими
+                лінзами нових моделей iPhone
               </Typography>
             </Grid>
           </Grid>
