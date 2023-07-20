@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
   Typography,
@@ -69,6 +69,7 @@ function HeaderAppBar() {
   const [isLoginModalOpen, setLoginModalOpen] = React.useState(false);
   const isAuthorized = useSelector(getAccessToken);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLoginModalOpen = () => {
     setLoginModalOpen(true);
@@ -94,6 +95,14 @@ function HeaderAppBar() {
     await logOut();
     dispatch(logout());
   };
+
+  React.useEffect(() => {
+    if (isAuthorized !== null) {
+      setLoginModalOpen(false);
+      navigate("user");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthorized]);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -222,7 +231,6 @@ function HeaderAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             {!isAuthorized ? (
-              // <Link to="/user">
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -235,7 +243,6 @@ function HeaderAppBar() {
                 <AccountCircle />
               </IconButton>
             ) : (
-              // </Link>
               <>
                 <Link to="/user">
                   <IconButton

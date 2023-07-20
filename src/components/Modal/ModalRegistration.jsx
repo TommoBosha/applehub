@@ -97,7 +97,7 @@ export default function ModalRegistration({ handleRegistrationClose }) {
         Зареєструватись
       </Button>
       <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
-        Чи вже є аккаунт?
+        Чи вже є аккаунт?{" "}
         <Link
           component="button"
           variant="body2"
