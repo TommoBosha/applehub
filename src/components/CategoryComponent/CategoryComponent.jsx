@@ -12,6 +12,10 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   flexDirection: "column",
   background: "rgba(25, 118, 210, 0.1)",
   marginTop: "30px",
+  transition: "box-shadow 0.3s ease-in-out", 
+  "&:hover": {
+    boxShadow: "0px 4px 10px rgba(25, 118, 210, 0.425)", 
+  },
 }));
 
 const PaginationWrapper = styled("div")({
@@ -72,8 +76,8 @@ const CategoryComponent = ({ category }) => {
         <Grid container spacing={2}>
           {getCategoryItems().map((item, index) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-              <CardWrapper>
-                <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
+              <CardWrapper >
+                <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`} >
                 <CardMedia
                   component="img"
                   height="auto"
@@ -103,7 +107,7 @@ const CategoryComponent = ({ category }) => {
         {getCategoryItems().map((item, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
             <CardWrapper>
-              <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
+              <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
               <CardMedia
                 component="img"
                 height="auto"

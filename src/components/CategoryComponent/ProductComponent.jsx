@@ -11,7 +11,9 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   marginTop: "30px",
+  background: "rgba(25, 118, 210, 0.1)",
 }));
+
 
 const ProductComponent = () => {
   const [titleData, setTitleData] = useState(null);
@@ -88,28 +90,28 @@ const ProductComponent = () => {
             <div style={{ flex: 1, marginLeft: "30px" }}>
               <Typography variant="h5"> {titleData.title}</Typography>
               {titleData.price && (
-                <Typography variant="body1">Ціна: {titleData.price}</Typography>
+                <Typography  variant="h6" fontWeight="bold">Ціна: {titleData.price}</Typography>
               )}
               {titleData.capacity && (
-                <Typography variant="body1">Оперативна пам'ять: {titleData.capacity}</Typography>
+                <Typography variant="h6" fontWeight="bold">Оперативна пам'ять: {titleData.capacity}</Typography>
               )}
               {titleData.color && (
-                <Typography variant="body1">Колір: {titleData.color}</Typography>
+                <Typography variant="h6" fontWeight="bold">Колір: {titleData.color}</Typography>
               )}
               {titleData.version && (
-                <Typography variant="body1">Версія: {titleData.version}</Typography>
+                <Typography variant="h6" fontWeight="bold">Версія: {titleData.version}</Typography>
               )}
               {titleData.strapsize && (
-                <Typography variant="body1">Розмір ремінця: {titleData.strapsize}</Typography>
+                <Typography variant="h6" fontWeight="bold">Розмір ремінця: {titleData.strapsize}</Typography>
               )}
               {titleData.size && (
-                <Typography variant="body1">Розмір: {titleData.size}</Typography>
+                <Typography variant="h6" fontWeight="bold">Розмір: {titleData.size}</Typography>
               )}
 
               {titleData.characteristics && (
                 <div style={{ marginTop: "30px" }}>
                   <Typography variant="h6">Характеристики:</Typography>
-                  <ul>
+                  <ul style={{ listStyleType: 'none', paddingInlineStart: 0 }}>
                     {titleData.characteristics.maker && (
                       <li>
                         <Typography variant="body2" fontWeight="bold">

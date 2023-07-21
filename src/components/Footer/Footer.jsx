@@ -9,10 +9,10 @@ const Footer = () => {
         <Grid item xs={4}>
           <Grid container direction="column" alignItems="center">
             <Typography variant="h6">Каталог зі списком продукції</Typography>
-            <Link href="/iphone" variant="body1">iPhone</Link>
-            <Link href="/ipad" variant="body1">iPad</Link>
-            <Link href="/watch" variant="body1">Watch</Link>
-            <Link href="/headphones" variant="body1">Headphones</Link>
+            <Link href="/applehub/iphone" style={{ color: 'inherit', textDecoration: 'none' }}>iPhone</Link>
+            <Link href="/applehub/ipad" style={{ color: 'inherit', textDecoration: 'none' }}>iPad</Link>
+            <Link href="/applehub/watch" style={{ color: 'inherit', textDecoration: 'none' }}>Watch</Link>
+            <Link href="/applehub/headphones" style={{ color: 'inherit', textDecoration: 'none' }}>Headphones</Link>
           </Grid>
         </Grid>
         <Grid item xs={4}>

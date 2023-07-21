@@ -12,6 +12,10 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   flexDirection: "column",
   background: "rgba(25, 118, 210, 0.1)",
   marginTop: "30px",
+   transition: "box-shadow 0.3s ease-in-out", 
+  "&:hover": {
+    boxShadow: "0px 4px 10px rgba(25, 118, 210, 0.425)", 
+  },
 }));
 
 const CategoryItemComponent = ({ categoryData }) => {
@@ -37,7 +41,7 @@ const CategoryItemComponent = ({ categoryData }) => {
                       </div>
                     ))}
                 </Carousel>
-                <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
+                <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
                   <CardContent>
                     <Typography variant="h6">{item.model}</Typography>
                     <Typography variant="body2">{item.title}</Typography>
