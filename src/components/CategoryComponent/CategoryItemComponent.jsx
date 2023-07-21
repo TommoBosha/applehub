@@ -1,22 +1,11 @@
 import React from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Grid, CardContent, Typography } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { CardWrapper } from "./CategoryStyles";
 
-const CardWrapper = styled(Card)(({ theme }) => ({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  background: "rgba(25, 118, 210, 0.1)",
-  marginTop: "30px",
-   transition: "box-shadow 0.3s ease-in-out", 
-  "&:hover": {
-    boxShadow: "0px 4px 10px rgba(25, 118, 210, 0.425)", 
-  },
-}));
 
 const CategoryItemComponent = ({ categoryData }) => {
   return (
