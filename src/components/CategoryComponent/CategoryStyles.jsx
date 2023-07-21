@@ -19,3 +19,11 @@ export const PaginationWrapper = styled("div")({
   justifyContent: "center",
   marginTop: "50px",
 });
+
+ export const CardProductWrapper = styled(Card)(({ theme }) => ({
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "30px",
+  background: "rgba(25, 118, 210, 0.1)",
+}));

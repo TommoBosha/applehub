@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { database, ref, onValue, off } from "../../firebase/config";
-import { Card, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Typography } from "@mui/material";
 import Loader from "../Loader/Loader";
 import { Carousel } from "react-responsive-carousel";
-
-const CardWrapper = styled(Card)(({ theme }) => ({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  marginTop: "30px",
-  background: "rgba(25, 118, 210, 0.1)",
-}));
-
+import { CardProductWrapper } from "./CategoryStyles";
 
 const ProductComponent = () => {
   const [titleData, setTitleData] = useState(null);
@@ -61,7 +52,7 @@ const ProductComponent = () => {
   return (
     <div>
       {titleData ? (
-        <CardWrapper>
+        <CardProductWrapper>
           <div style={{ display: "flex" }}>
             <div style={{ flex: 1 }}>
               <Carousel
@@ -237,7 +228,7 @@ const ProductComponent = () => {
               )}
             </div>
           </div>
-        </CardWrapper>
+        </CardProductWrapper>
       ) : (
         <Loader />
       )}
