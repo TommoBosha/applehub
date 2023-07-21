@@ -1,18 +1,11 @@
 import React from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Grid, CardContent, Typography } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { CardWrapper } from "./CategoryStyles";
 
-const CardWrapper = styled(Card)(({ theme }) => ({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  background: "rgba(25, 118, 210, 0.1)",
-  marginTop: "30px",
-}));
 
 const CategoryItemComponent = ({ categoryData }) => {
   return (
@@ -37,7 +30,7 @@ const CategoryItemComponent = ({ categoryData }) => {
                       </div>
                     ))}
                 </Carousel>
-                <Link to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
+                <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
                   <CardContent>
                     <Typography variant="h6">{item.model}</Typography>
                     <Typography variant="body2">{item.title}</Typography>
