@@ -3,12 +3,12 @@ import { useState } from "react";
 import {
   onAuthState,
   signIn,
+  signInWithToken,
   singInWithGoogle,
 } from "../../redux/auth/authOperations";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../../redux/auth/authSelectors";
-import { signInWithCustomToken } from "firebase/auth";
 
 export default function ModalLogin({ handleRegistrationOpen }) {
   const [email, setEmail] = useState("");
@@ -41,16 +41,16 @@ export default function ModalLogin({ handleRegistrationOpen }) {
       return { error: error.message };
     }
   };
-  const handleOnAuthStateCharged = async () => {
+  const handleOnAuthStateCharged = () => {
     try {
-      await onAuthState();
+      onAuthState();
     } catch (error) {
       return { error: error.message };
     }
   };
-  const handleSignInWithCustomToken = async () => {
+  const handleSignInWithCustomToken = () => {
     try {
-      await signInWithCustomToken();
+      signInWithToken();
     } catch (error) {
       return { error: error.message };
     }
@@ -103,6 +103,7 @@ export default function ModalLogin({ handleRegistrationOpen }) {
       >
         statecharged
       </Button>
+
       <Button
         variant="contained"
         color="primary"

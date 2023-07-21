@@ -9,24 +9,30 @@ import styles from "./styles";
 
 function UserPage() {
   const userId = useSelector(getUserId);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const querySnapshot = await getDocs(
           collection(db, "users"),
-          where("userId", "==", userId)
+          where("userId", "===", userId)
         );
         querySnapshot.forEach((doc) => {
-          setUser(doc.data());
-          console.log(doc.id, " => ", doc.data());
+          // const currentUser
+
+          if (doc.id === userId) {
+            setUser(doc.data());
+            // setUser(currentUser);
+            console.log(doc.id, " => ", doc.data());
+            // console.log(currentUser);
+          }
         });
-        if (doc.exists) {
-          setUser(doc.data());
-        } else {
-          console.log("User not found!");
-        }
+        // if (doc.exists) {
+        //   setUser(doc.data());
+        // } else {
+        //   console.log("User not found!");
+        // }
       } catch (error) {
         console.error("Error fetching user:", error);
       }

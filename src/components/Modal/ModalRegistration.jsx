@@ -3,7 +3,8 @@ import { useState } from "react";
 import { signUp } from "../../redux/auth/authOperations";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId } from "../../redux/auth/authSelectors";
 
 export default function ModalRegistration({ handleRegistrationClose }) {
   const [name, setName] = useState("");
@@ -14,6 +15,7 @@ export default function ModalRegistration({ handleRegistrationClose }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [setError] = useState("");
   const dispatch = useDispatch();
+  const userId = useSelector(getUserId);
 
   const handleRegistrationSubmit = async () => {
     if (password !== confirmPassword) {
@@ -24,13 +26,6 @@ export default function ModalRegistration({ handleRegistrationClose }) {
       const signUpResult = dispatch(
         signUp(email, password, name, surname, phone)
       );
-
-      await addDoc(collection(db, "users"), {
-        name,
-        surname,
-        phone,
-        email,
-      });
 
       if (signUpResult.error) {
         setError(signUpResult.error);
