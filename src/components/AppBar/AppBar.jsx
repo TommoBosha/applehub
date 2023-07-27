@@ -69,7 +69,6 @@ function HeaderAppBar() {
   const [isLoginModalOpen, setLoginModalOpen] = React.useState(false);
   const isAuthorized = useSelector(getAccessToken);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const handleLoginModalOpen = () => {
     setLoginModalOpen(true);
@@ -91,8 +90,8 @@ function HeaderAppBar() {
     return selectedCategory === category;
   };
 
-  const handleSignOut = async () => {
-    await logOut();
+  const handleSignOut = () => {
+    logOut();
     dispatch(logout());
   };
 

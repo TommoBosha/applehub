@@ -1,28 +1,11 @@
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  getAdditionalUserInfo,
-  getIdToken,
-  getIdTokenResult,
-  onAuthStateChanged,
-  sendPasswordResetEmail,
-  signInWithCustomToken,
   signInWithEmailAndPassword,
-  signInWithPopup,
-  signInWithRedirect,
   signOut,
-  updateProfile,
 } from "firebase/auth";
-import { auth, db, provider } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import { updateUser } from "../auth/authSlice";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 export const signUp =
   (email, password, surname, name, phone) => async (dispatch) => {
@@ -70,80 +53,80 @@ export const signIn = (email, password) => async (dispatch) => {
   }
 };
 
-export const onAuthState = () => {
-  try {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, accessToken, refreshToken } = user;
-        updateUser({ userId: uid, accessToken: accessToken, refreshToken });
-      } else {
-        logOut();
-      }
-    });
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+// export const onAuthState = async () => {
+//   try {
+//     const currentUser = await onAuthStateChanged(auth, (currentUser) => {
+//       console.log("====================================");
+//       console.log(currentUser);
+//       console.log(currentUser.uid);
+//       console.log(currentUser.accessToken);
+//       console.log(currentUser.refreshToken);
+//       console.log("====================================");
 
-export const singInWithGoogle = async (dispatch) => {
-  try {
-    const userCredential = await signInWithRedirect(auth, provider);
-    const credentials = GoogleAuthProvider.credentialFromResult(userCredential);
-    getAdditionalUserInfo(userCredential);
+//       signInWithCustomToken(auth, currentUser.accessToken);
+//     });
+//     console.log("====================================");
+//     console.log(currentUser);
+//     console.log("====================================");
+//   } catch (error) {
+//     return { error: error.message };
+//   }
+// };
 
-    const { localId, displayName, email, refreshToken, accessToken, idToken } =
-      credentials;
+// export const singInWithGoogle = async (dispatch) => {
+//   try {
+//     const userCredential = await signInWithRedirect(auth, provider);
+//     const credentials = GoogleAuthProvider.credentialFromResult(userCredential);
+//     getAdditionalUserInfo(userCredential);
 
-    await getDocs(query(collection(db, "users"), where("uid", "==", localId)));
+//     const { localId, displayName, email, refreshToken, accessToken, idToken } =
+//       credentials;
 
-    setDoc(doc(db, "users", localId), {
-      name: displayName,
-      email: email,
-      uid: localId,
-    });
+//     await getDocs(query(collection(db, "users"), where("uid", "==", localId)));
 
-    console.log("====================================");
-    console.log(userCredential, credentials);
-    console.log("====================================");
+//     setDoc(doc(db, "users", localId), {
+//       name: displayName,
+//       email: email,
+//       uid: localId,
+//     });
 
-    updateUser({
-      userId: localId,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
+//     console.log("====================================");
+//     console.log(userCredential, credentials);
+//     console.log("====================================");
 
-    signInWithCustomToken(auth, idToken);
-  } catch (error) {
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    return { credential, error: error.message };
-  }
-};
+//     updateUser({
+//       userId: localId,
+//       accessToken: accessToken,
+//       refreshToken: refreshToken,
+//     });
 
-export const signInWithToken = (accessToken) => {
-  try {
-    const userCredential = signInWithCustomToken(auth, accessToken);
-    // userCredential.user.getIdToken(true).then((newAccessToken) => {
-    //   getIdTokenResult().then((idTokenResult) => {
-    //     idTokenResult.claims.accessToken = newAccessToken;
-    //     return getIdToken(true);
-    //   });
-    // });
+//     signInWithCustomToken(auth, idToken);
+//   } catch (error) {
+//     const credential = GoogleAuthProvider.credentialFromError(error);
+//     return { credential, error: error.message };
+//   }
+// };
 
-    const { uid, accessToken, refreshToken } = userCredential.user;
+// export const signInWithToken = (token) => (dispatch) => {
+//   try {
+//     const userCredential = signInWithCustomToken(auth, token);
+//     const { uid, accessToken, refreshToken } = userCredential.user;
 
-    console.log("=================cust token===================");
-    console.log(userCredential.user);
-    console.log("====================================");
+//     console.log("=================cust token===================");
+//     console.log(userCredential.user);
+//     console.log("====================================");
 
-    updateProfile({
-      userId: uid,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+//     dispatch(
+//       updateProfile({
+//         userId: uid,
+//         accessToken: accessToken,
+//         refreshToken: refreshToken,
+//       })
+//     );
+//   } catch (error) {
+//     return { error: error.message };
+//   }
+// };
 
 export const logOut = () => {
   try {
@@ -153,12 +136,12 @@ export const logOut = () => {
   }
 };
 
-export const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    console.log("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+// export const sendPasswordReset = async (email) => {
+//   try {
+//     await sendPasswordResetEmail(auth, email);
+//     console.log("Password reset link sent!");
+//   } catch (err) {
+//     console.error(err);
+//     alert(err.message);
+//   }
+// };
