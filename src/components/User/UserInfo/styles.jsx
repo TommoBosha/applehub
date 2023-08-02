@@ -13,6 +13,9 @@ export const styles = {
     ".css-1x51dt5-MuiInputBase-input-MuiInput-input.Mui-disabled": {
       WebkitTextFillColor: "black",
     },
+    ".css-v4u5dn-MuiInputBase-root-MuiInput-root.Mui-disabled:before": {
+      borderBottomStyle: "hidden",
+    },
   },
   buttonEdit: {
     pt: "20px",

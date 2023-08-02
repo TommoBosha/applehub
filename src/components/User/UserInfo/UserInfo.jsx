@@ -57,7 +57,7 @@ function UserInfo({ name, email, phone }) {
           label="Ім'я та прізвище"
           value={userName}
           type="text"
-          required
+          required={updateInputName}
           onChange={(e) => setUserName(e.target.value)}
           disabled={!updateInputName}
           sx={styles.inputDisabled}
@@ -86,7 +86,7 @@ function UserInfo({ name, email, phone }) {
           label="Електронна адреса"
           value={userEmail}
           type="text"
-          required
+          required={updateInputEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           disabled={!updateInputEmail}
           sx={styles.inputDisabled}
@@ -115,7 +115,7 @@ function UserInfo({ name, email, phone }) {
           label="Номер телефону"
           value={userPhone}
           type="tel"
-          required
+          required={updateInputPhone}
           onChange={(e) => setUserPhone(e.target.value)}
           disabled={!updateInputPhone}
           sx={styles.inputDisabled}
