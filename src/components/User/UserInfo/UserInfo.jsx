@@ -9,10 +9,10 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 function UserInfo({ name, email, phone }) {
+  const userId = useSelector(getUserId);
   const [userName, setUserName] = useState(name);
   const [userEmail, setUserEmail] = useState(email);
   const [userPhone, setUserPhone] = useState(phone);
-  const userId = useSelector(getUserId);
   const [updateInputName, setUpdateInputName] = useState(false);
   const [updateInputEmail, setUpdateInputEmail] = useState(false);
   const [updateInputPhone, setUpdateInputPhone] = useState(false);
@@ -24,6 +24,7 @@ function UserInfo({ name, email, phone }) {
     setUserName(userName);
     setUpdateInputName(false);
   };
+
   const handleUpdateUserEmail = async () => {
     await updateDoc(doc(db, "users", userId), {
       email: userEmail,
@@ -31,6 +32,7 @@ function UserInfo({ name, email, phone }) {
     setUserEmail(userEmail);
     setUpdateInputEmail(false);
   };
+
   const handleUpdateUserPhone = async () => {
     await updateDoc(doc(db, "users", userId), {
       phone: userPhone,

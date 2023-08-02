@@ -61,7 +61,10 @@ function UserPage() {
               <AddUserAddress closeAddAddress={closeAddAddress} />
             ) : (
               <>
-                <UserAddress userAddresses={user?.addresses} />
+                <UserAddress
+                  userAddresses={user?.addresses}
+                  fetchUser={() => fetchUser()}
+                />
                 <Button
                   sx={styles.button}
                   variant="outlined"
