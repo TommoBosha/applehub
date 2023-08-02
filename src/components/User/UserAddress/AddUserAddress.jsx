@@ -3,7 +3,7 @@ import options from "./optionsAdress";
 import { Box, Button, FormControl, TextField } from "@mui/material";
 import { styles } from "./styles";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
+import { apiKey, db } from "../../../firebase/config";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../../redux/auth/authSelectors";
 
@@ -15,8 +15,6 @@ const initialState = {
   apartamentNumber: "",
 };
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyCX1Cm6-ycILOw7EEtEsXmVMvDt5r8vD4c";
-
 function AddUserAddress({ closeAddAddress }) {
   const mapRef = useRef(null);
   const regionInputRef = useRef(null);
@@ -27,7 +25,7 @@ function AddUserAddress({ closeAddAddress }) {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
     script.async = true;
     script.onload = initMap;
     document.body.appendChild(script);

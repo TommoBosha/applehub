@@ -27,3 +27,4 @@ export const storage = getStorage(app);
 export const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 export { database, ref, onValue, off };
+export const apiKey = firebaseConfig.apiKey;
