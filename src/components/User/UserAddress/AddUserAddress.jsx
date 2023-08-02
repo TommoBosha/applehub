@@ -75,7 +75,7 @@ function AddUserAddress({ closeAddAddress }) {
       autocompleteOptions
     );
 
-    function handlePlaceChange(autocomplete) {
+    function handlePlaceChange(autocomplete, field) {
       const place = autocomplete.getPlace();
       if (place.geometry && place.geometry.location) {
         if (place.geometry.viewport) {
@@ -89,25 +89,26 @@ function AddUserAddress({ closeAddAddress }) {
 
         const { region, city, street } = extractAddressComponents(place);
 
-        setState({
-          ...state,
-          region,
-          city,
-          street,
-        });
+        if (field === "region") {
+          setState((prevState) => ({ ...prevState, region }));
+        } else if (field === "city") {
+          setState((prevState) => ({ ...prevState, city }));
+        } else if (field === "street") {
+          setState((prevState) => ({ ...prevState, street }));
+        }
       }
     }
 
     regionAutocomplete.addListener("place_changed", () => {
-      handlePlaceChange(regionAutocomplete);
+      handlePlaceChange(regionAutocomplete, "region");
     });
 
     cityAutocomplete.addListener("place_changed", () => {
-      handlePlaceChange(cityAutocomplete);
+      handlePlaceChange(cityAutocomplete, "city");
     });
 
     streetAutocomplete.addListener("place_changed", () => {
-      handlePlaceChange(streetAutocomplete);
+      handlePlaceChange(streetAutocomplete, "street");
     });
   }
 
