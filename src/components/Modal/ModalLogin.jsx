@@ -9,7 +9,7 @@ export default function ModalLogin({ handleRegistrationOpen }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [setError] = useState("");
-  const isAuthorized = useSelector(getAccessToken);
+  const token = useSelector(getAccessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export default function ModalLogin({ handleRegistrationOpen }) {
       if (signUpResult.error) {
         setError(signUpResult.error);
       }
-      if (isAuthorized) {
+      if (token) {
         navigate("/user");
       }
     } catch (error) {
