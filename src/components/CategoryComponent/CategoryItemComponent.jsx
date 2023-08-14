@@ -30,7 +30,8 @@ const CategoryItemComponent = ({ categoryData }) => {
                       </div>
                     ))}
                 </Carousel>
-                <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/${encodeURIComponent(item.title.replace(/[.,(),%\s]/g, "-")).toLowerCase()}`}>
+                <Link style={{ color: 'inherit', textDecoration: 'none' }}
+                 to={`/product/${item._id}`}>
                   <CardContent>
                     <Typography variant="h6">{item.model}</Typography>
                     <Typography variant="body2">{item.title}</Typography>

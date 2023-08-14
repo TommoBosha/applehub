@@ -1,53 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { database, ref, onValue, off } from "../../firebase/config";
 import { Typography } from "@mui/material";
 import Loader from "../Loader/Loader";
 import { Carousel } from "react-responsive-carousel";
 import { CardProductWrapper } from "./CategoryStyles";
+import { useSelector, useDispatch } from "react-redux";
+import { getSingleProduct } from "../../redux/products/productOperations";
+import { selectSingleProduct } from "../../redux/products/productSelectors";
+
 
 const ProductComponent = () => {
-  const [titleData, setTitleData] = useState(null);
-  const { titleName } = useParams();
+
+ const [titleData, setTitleData] = useState(null);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  
+  const singleProduct = useSelector(selectSingleProduct);
 
   useEffect(() => {
-    const titleRef = ref(database);
-    function decodeTitle(title) {
-      return title
-        .replace(/\(/g, " (")
-        .replace(/\)/g, ") ")
-        .replace(/-/g, " ")
-        .replace(/\s+/g, " ")
-        .replace(/wi fi/i, "wi-fi")
-        .replace(/10 9/i, "10.9")
-        .replace(/12 9/i, "12.9");
+    dispatch(getSingleProduct(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (singleProduct) {
+      setTitleData(singleProduct);
     }
+  }, [singleProduct]);
 
-    const handleValueChange = (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const allProducts = Object.values(data).flatMap((category) =>
-          Object.values(category).flatMap((products) => products)
-        );
-
-        const decodedTitle = decodeTitle(titleName);
-        console.log(decodeTitle(titleName));
-        const filteredData = allProducts.find(
-          (item) => item.title && item.title.toLowerCase() === decodedTitle
-        );
-
-        if (filteredData) {
-          setTitleData(filteredData);
-        }
-      }
-    };
-
-    onValue(titleRef, handleValueChange);
-
-    return () => {
-      off(titleRef, handleValueChange);
-    };
-  }, [titleName]);
 
   return (
     <div>

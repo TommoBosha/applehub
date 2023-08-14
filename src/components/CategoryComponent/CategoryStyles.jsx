@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Card, Pagination } from "@mui/material";
 import styled from "styled-components";
 
 
@@ -26,4 +26,15 @@ export const PaginationWrapper = styled("div")({
   flexDirection: "column",
   marginTop: "30px",
   background: "rgba(25, 118, 210, 0.1)",
+ }));
+
+ export const CenteredPagination = styled(Pagination)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  margin: "3rem 0",
+  "& .MuiPagination-ul": {
+    "& .MuiPaginationItem-root": {
+      fontSize: "1.2rem",
+    },
+  },
 }));

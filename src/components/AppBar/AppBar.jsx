@@ -194,7 +194,7 @@ function HeaderAppBar() {
                     {page.models.map((model) => (
                       <MenuItem key={model}>
                         <Link
-                          to={`/${page.category.toLowerCase()}/${model
+                          to={`/${model
                             .toLowerCase()
                             .replace(/\s+/g, "-")
                             .replace(/\./g, "-")}`}
