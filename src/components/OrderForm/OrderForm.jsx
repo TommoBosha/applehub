@@ -46,8 +46,9 @@ const validationSchema = Yup.object().shape({
 
 const OrderForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
-    try {
-      await addOrder(values);
+      try {
+        const data = { ...values, communicateBy: [...values.communicateBy] };
+      await addOrder(data);
       toast.success("Ваші дані були успішно надіслані!");
       resetForm();
     } catch (error) {
@@ -105,7 +106,7 @@ const OrderForm = () => {
             </div>
             <p>
               Ви можете зв'язатися з нами за допомогою електронної пошти,
-              Telegram або Viber.
+              Telegram або зателефонувати.
             </p>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Checkbox
@@ -113,21 +114,24 @@ const OrderForm = () => {
                 checkedIcon={<MailOutlineIcon />}
                 name="communicateBy"
                 value="email"
-                defaultChecked
+                              defaultChecked
+                              multiple
               />
               
               <Checkbox
                 icon={<PhoneInTalkIcon />}
                 checkedIcon={<PhoneInTalkIcon />}
                 name="communicateBy"
-                value="viber"
+                              value="viber"
+                              multiple
               />
 
               <Checkbox
                 icon={<TelegramIcon />}
                 checkedIcon={<TelegramIcon />}
                 name="communicateBy"
-                value="telegram"
+                              value="telegram"
+                              multiple
               />
             </div>
             <Button variant="contained" color="primary" type="submit">

@@ -1,48 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { database, ref, onValue } from "../../firebase/config";
+import React, { useEffect,useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductByModel } from "../../redux/products/productOperations";
 import CategoryItemComponent from "../../components/CategoryComponent/CategoryItemComponent";
-import { Pagination, styled } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import { selectProductList } from "../../redux/products/productSelectors";
+import { modelFormatMap } from "../../utils";
+import { CenteredPagination } from "../../components/CategoryComponent/CategoryStyles";
 
-const CenteredPagination = styled(Pagination)(({ theme }) => ({
-  display: "flex",
-  justifyContent: "center",
-  margin: "3rem 0",
-  "& .MuiPagination-ul": {
-    "& .MuiPaginationItem-root": {
-      fontSize: "1.2rem",
-    },
-  },
-}));
 
 function CategoryPage() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const categoryPath = location.pathname.replace("/", "");
+  const formattedModel = modelFormatMap[categoryPath];
+  console.log(formattedModel);
 
-  const [categoryData, setCategoryData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
   useEffect(() => {
-    const categoryRef = ref(database, categoryPath);
-    onValue(categoryRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      if (data) {
-        setCategoryData(data);
-      }
-    });
-  }, [categoryPath]);
+    if (formattedModel) {
+      const getProduct = () => {
+        dispatch(
+          getProductByModel({
+            model: formattedModel,
+            page: currentPage,
+            perPage: itemsPerPage,
+          })
+        );
+      };
+
+      getProduct();
+    }
+  }, [formattedModel, currentPage, dispatch, itemsPerPage]);
+
+  const products = useSelector(selectProductList);
+  const totalPages = Math.ceil(products.productList.total / itemsPerPage);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [categoryPath]);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = Array.isArray(categoryData)
-    ? categoryData.slice(indexOfFirstItem, indexOfLastItem)
-    : [];
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
@@ -50,10 +47,11 @@ function CategoryPage() {
 
   return (
     <div>
-      <CategoryItemComponent categoryData={currentItems} />
-      {categoryData && categoryData.length > itemsPerPage && (
+      <CategoryItemComponent categoryData={products.productList.products} />
+
+      {totalPages && (
         <CenteredPagination
-          count={Math.ceil(categoryData.length / itemsPerPage)}
+          count={totalPages}
           page={currentPage}
           onChange={handlePageChange}
         />
