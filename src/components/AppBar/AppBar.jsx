@@ -90,10 +90,18 @@ function HeaderAppBar() {
     return selectedCategory === category;
   };
 
-  const handleSignOut = async () => {
-    await logOut();
+  const handleSignOut = () => {
+    logOut();
     dispatch(logout());
   };
+
+  React.useEffect(() => {
+    if (isAuthorized !== null) {
+      setLoginModalOpen(false);
+      // navigate("user");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthorized]);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -222,7 +230,6 @@ function HeaderAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             {!isAuthorized ? (
-              // <Link to="/user">
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -235,7 +242,6 @@ function HeaderAppBar() {
                 <AccountCircle />
               </IconButton>
             ) : (
-              // </Link>
               <>
                 <Link to="/user">
                   <IconButton

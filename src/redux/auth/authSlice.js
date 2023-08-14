@@ -10,12 +10,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState: authInitialState,
   reducers: {
-    registerUser: (state, { payload }) => ({
-      ...state,
-      userId: payload.userId,
-      accessToken: payload.accessToken,
-      refreshToken: payload.refreshToken,
-    }),
     updateUser: (state, { payload }) => ({
       ...state,
       userId: payload.userId,

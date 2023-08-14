@@ -22,14 +22,12 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route path="" element={<MainPage />} />
-          <Route path="/:categoryName" element={<CategoryPage />} />
           <Route path="/iphone" element={<IphonePage />} />
+          <Route path="/:categoryName" element={<CategoryPage />} />
           <Route path="/ipad" element={<IpadPage />} />
           <Route path="/watch" element={<WatchPage />} />
           <Route path="/headphones" element={<HeadphonePage />} />
-
           <Route path='/product/:id' element={<ProductPage />} />
-
           <Route path="" element={<PublicRoute redirectTo="user" restricted />}>
             <Route path="/" element={<AuthModal />} />
           </Route>

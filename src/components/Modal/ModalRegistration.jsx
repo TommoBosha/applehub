@@ -1,8 +1,6 @@
 import { Button, Link, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "../../redux/auth/authOperations";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase/config";
 import { useDispatch } from "react-redux";
 
 export default function ModalRegistration({ handleRegistrationClose }) {
@@ -24,13 +22,6 @@ export default function ModalRegistration({ handleRegistrationClose }) {
       const signUpResult = dispatch(
         signUp(email, password, name, surname, phone)
       );
-
-      await addDoc(collection(db, "users"), {
-        name,
-        surname,
-        phone,
-        email,
-      });
 
       if (signUpResult.error) {
         setError(signUpResult.error);
@@ -97,7 +88,7 @@ export default function ModalRegistration({ handleRegistrationClose }) {
         Зареєструватись
       </Button>
       <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
-        Чи вже є аккаунт?
+        Чи вже є аккаунт?{" "}
         <Link
           component="button"
           variant="body2"
